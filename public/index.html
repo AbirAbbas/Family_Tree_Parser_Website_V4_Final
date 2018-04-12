@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Geneology App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <!-- Custom CSS End -->
+</head>
+<body>
+
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+            <h4 class="text-white">Menu</h4>
+            <ul class="nav nav-pills barPadding" role="tablist">
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#home">Home</a>
+                </li>
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#status">Status</a>
+                </li>
+                <li>
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#file">File</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#gedcom">Gedcom</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#upload">Upload</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#create">Create</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#add">Add</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#desc">Descendants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="slide-section nav-link inactive1" data-toggle="pill" href="#ances">Ancestors</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark bgCG">
+            <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img class = "icon" src="icon.png" alt="Logo">
+                        <b class="icon">Geneology App</b>
+                    </a>
+            </div>
+            <button class="navbar-toggler" onclick="topFunction()" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="tab-content bodyBackground topLayer">
+        <div id="home" class="customContainer tab-pane active"><br>
+            <h1>Welcome to the geneology app!</h1>
+            <br>
+            <p class="homeFormat">
+                To navigate through the website click on the ≡ symbol on the top right of the screen.
+                <br>
+                <br>
+                <!-- STATUS PANEL -->
+                <div id="status"><br>
+                    <h2 align = "center" class = "extraPadding">Status Panel</h2>
+                    <br>
+                    <!-- Status Textbox, add func when new text is inputted it automatically scrolls to the bottom -->
+                    <div class="card">
+                        <div id = "statusPanelText" class="card-block scroll-box">
+                          
+                        </div>
+                    </div>
+                </div>
+                <!-- UPLOAD PANEL -->
+                <div id="upload"><br>
+                    <h2 align = "center" class = "extraPadding">Upload Panel</h2>
+                    <br>
+                    <div align = "center" class = "extraPadding">
+					<form ref='uploadForm' 
+						id='uploadForm' 
+						action='/upload' 
+						method='post' 
+						onsubmit= 'return validateForm()'
+						encType="multipart/form-data">
+						<input type="file" name="uploadFile" required />
+						<input type='submit' value='Upload!' />
+					</form>
+					</div>     
+                </div>
+                <!-- FILE PANEL -->
+                <div id="file"><br>
+                    <h2 align = "center" class = "extraPadding">File Log Panel</h2>
+                    
+                    <!-- Table for indis -->
+                    <div class = "customTable scrollEnabled">
+                            <h4>All individuals</h4>        
+                            <table id = "indiList" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            File name
+                                            <br>
+                                            (click to download)
+                                        </th>
+                                        <th>Source</th>
+                                        <th>
+                                            GEDC
+                                            <br>
+                                            version
+                                        </th>
+                                        <th>Encoding</th>
+                                        <th>
+                                            Submitter
+                                            <br>
+                                            name
+                                        </th>
+                                        <th>
+                                            Submitter
+                                            <br>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Number of
+                                            <br>
+                                            individuals
+                                        </th>
+                                        <th>
+                                            Number of
+                                            <br>
+                                            families
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+									<!-- Sample 
+                                    <tr>
+                                        <td>simpleGedcom.ged</td>
+                                        <td>PAF</td>
+                                        <td>5.5</td>
+                                        <td>ANSEL</td>
+                                        <td>Submitter</td>
+                                        <td></td>
+                                        <td>3</td>
+                                        <td>1</td>
+                                    </tr>
+									-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end of Table for indis -->
+
+                </div>
+                <!-- GEDCOM PANEL -->
+                <div id="gedcom"><br>
+                <br>
+                    <h2 align = "center" class = "extraPadding">Gedcom View Panel</h2>
+                    <br>
+
+                    <!-- dropdown for files -->
+                    <div align = "center" class="dropdown extraPadding">
+                        <button type="button" class="btn btn-primary dropdown-toggle stretchBlue" data-toggle="dropdown">
+                            Select your file
+                        </button>
+                        <div id = 'dropdownList' class="dropdown-menu stretchBlue smallScrollEnabled">
+							<!--
+                            <a class="dropdown-item" href="#">simpleValid.ged</a>
+                            <a class="dropdown-item" href="#">shakespeare.ged</a>
+                            <a class="dropdown-item" href="#">test.ged</a>
+                            -->
+                        </div>
+                    </div>
+                    <!-- dropdown for files -->
+
+                    <!-- Table for indis -->
+                    <br>
+                    <div class = "customTable smallScrollEnabled">
+                        <h4 id = 'gpanelFile'>All Files</h4>        
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Sex</th>
+                                <th>Family size</th>
+                            </tr>
+                            </thead>
+                            <tbody id = "indiBody">
+							
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end of Table for indis -->
+                    
+                    <!-- GEDCOM Get Desc -->
+                    <div id = "desc">
+						<br>
+						<h4>Get Descendants</h4>  
+						<h5 id = "descendantFile"class ="importantText"><strong>* Please scroll up and select a file in the blue drop-down box!</strong></h5>
+						<form class = "extraPadding" action = "javascript:handleClickDesc()">
+							<div class="form-group">
+							<label for="indiDesc">Select an individual</label>
+							<select id = "indiDesc" required >
+								<!--
+								<option value="ANSEL">ANSEL</option>
+								<option value="UTF-8">UTF-8</option>
+								<option value="UNICODE">UNICODE</option>
+								<option value="ASCII">ASCII</option>
+								-->
+							</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="submittername">Max number of generations</label>
+								<input type="text" class="form-control" id="maxGenDesc" placeholder="Max generations" required>
+							</div>
+							
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						
+						<div class = "customTable smallScrollEnabled"> 
+							<table id = "descendantList" class="table table-bordered table-hover">
+									<tbody id = "dList1" class="table table-bordered table-hover">
+									
+									</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!-- GEDCOM Get Ances -->
+					<div id = "ances">
+						<br>
+						<h4>Get Ancestors</h4>  
+						<h5 id = "ancestorFile"class ="importantText"><strong>* Please scroll up and select a file in the blue drop-down box!</strong></h5>
+						<form class = "extraPadding" action = "javascript:handleClickAnces()">
+							<div class="form-group">
+							<label for="indiAnces">Select an individual</label>
+							<select id = "indiAnces" required >
+							</select>
+							</div>
+							
+							<div class="form-group">
+								<label for="submittername">Max number of generations</label>
+								<input type="text" class="form-control" id="maxGenAnces" placeholder="Max generations" required >
+							</div>
+							
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						
+						<div class = "customTable smallScrollEnabled"> 
+							<table id = "ancestorList" class="table table-bordered table-hover">
+									<tbody id = "aList1" class="table table-bordered table-hover">
+									
+									</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!-- GEDCOM ADD INDI -->
+					<div id = "add">
+						<br>
+						<h4>Insert individual</h4> 
+						<form class = "extraPadding" action = "javascript:handleClick()">
+							<div class="form-group">
+							<label for="givenname">Given name</label>
+							<input type="text" class="form-control" id="givenname" placeholder="Given name" required >
+							</div>
+							<div class="form-group">
+							<label for="surname">Surname</label>
+							<input type="text" class="form-control" id="surname" placeholder="Surname" required >
+							</div>
+							<div class="form-group">
+							<input type="submit" value="Submit">
+							</div>
+						</form>
+						</div>
+                </div>
+                <!-- Create GEDCOM PANEL -->
+                <div id="create"><br>
+                    <h2 align = "center" class = "extraPadding">GEDCOM create Panel</h2>
+                    
+                    <!-- GEDCOM CREATE-->
+                    <form class = "extraPadding" action = "javascript:handleClickCreate()">
+						
+						<div class="form-group">
+						<label for="filenamecreate">File name</label>
+						<input type="text" class="form-control" id="filenamecreate" placeholder="File name" required >
+						</div>
+	
+						<div class="form-group">
+						<label for="sourcecreate">Source</label>
+						<input type="text" class="form-control" id="sourcecreate" placeholder="Source" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="gedcversion">GEDCOM version</label>
+						<input type="text" class="form-control" id="gedcversion" placeholder="GEDCOM version" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="encoding">Encoding</label>
+						<select id = "encoding" required >
+						  <option value="ANSEL">ANSEL</option>
+						  <option value="UTF-8">UTF-8</option>
+						  <option value="UNICODE">UNICODE</option>
+						  <option value="ASCII">ASCII</option>
+						</select>
+						</div>
+						
+						<div class="form-group">
+						<label for="submittername">Submitter Name</label>
+						<input type="text" class="form-control" id="submittername" placeholder="Submitter Name" required >
+						</div>
+						
+						<div class="form-group">
+						<label for="submitteraddress">Submitter Address</label>
+						<input type="text" class="form-control" id="submitteraddress" placeholder="Submitter Address" required >
+						</div>
+						
+						<div class="form-group">
+						<input type="submit" value="Submit">
+						</div>
+					</form>    
+                </div>
+                
+                
+                
+                <!-- Assignment 4 Documents -->
+                <div id="assign4"><br>
+					 <h2 align = "center" class = "extraPadding">Database Panel</h2>
+					 <br>
+					 <h4>Database Functionality</h4>
+					
+					<div class = "buttonPadding" align="center">
+						
+						<h5 id = "databaseLogin" class ="importantText"><strong>* Please login to activate all database features!</strong></h5>
+
+						<button id = "loginButton" onClick = "showLogin()" type="button" class="btn btn-primary btn-lg buttonPadding">Login</button>
+
+						<button id = "storeButton" onClick = "storeDB()" type="button" class="btn btn-primary btn-lg buttonPadding" disabled>Store all files</button>
+
+						<button id = "clearButton" onClick = "clearDB()" type="button" class="btn btn-primary btn-lg buttonPadding" disabled>Clear all files</button>
+
+						<button id = "displayButton" onClick = "displayDB()" type="button" class="btn btn-primary btn-lg buttonPadding" disabled>Display all files</button>
+
+					</div>
+					<br>
+					<h5>Database console</h5>
+					<div class="card">
+                        <div id = "databasePanelText" class="card-block scroll-box">
+                          
+                        </div>
+                    </div>
+                    <br>
+                    
+					 <h4>Databse Queries</h4>
+					 
+					<div>
+						<br>
+						<h5 align = 'center' >Query Selection</h5>
+						
+					<div id = "querySelection" class="dropdown">
+						<button type="button" class="btn btn-primary stretchBlue dropdown-toggle" data-toggle="dropdown">
+							Query Selection
+						</button>
+						<div class="dropdown-menu stretchBlue">
+							<a class="dropdown-item" onClick = "sortLastname();">All individuals sorted by last name</a>
+							<a class="dropdown-item" onClick = "showQ2();">All individuals from a specific file</a>
+							<a class="dropdown-item" onClick = "showQ3();">All individuals based on sex from a specific fille</a>
+							<a class="dropdown-item" onClick = "showQ4();">All individuals based on familysize from a specific fille</a>
+							<a class="dropdown-item" onClick = "showQ5();">All individuals based on sex and family size from a specific file</a>
+						</div>
+						
+						<form id = "staticQuery2" action = "javascript:query2();" hidden>
+							<br>
+							<div class="form-group">
+								<label for="fileQuery2">Filename</label>
+								<input class="form-control" id="fileQuery2" aria-describedby="filename" placeholder="Filename" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<br>
+						</form>
+						
+						<form id = "staticQuery3" action = "javascript:query3();" hidden>
+							<br>
+							<div class="form-group">
+								<label for="sexQuery3">Sex</label>
+								<input class="form-control" id="sexQuery3" aria-describedby="sex" placeholder="Sex" required>
+							</div>
+							<div class="form-group">
+								<label for="fileQuery3">Filename</label>
+								<input class="form-control" id="fileQuery3" aria-describedby="filename" placeholder="Filename" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<br>
+						</form>
+						
+						<form id = "staticQuery4" action = "javascript:query4();" hidden>
+							<br>
+							<div class="form-group">
+								<label for="famsize4">Family size</label>
+								<input class="form-control" id="famsize4" aria-describedby="famsize" placeholder="Family size" required>
+							</div>
+							<div class="form-group">
+								<label for="fileQuery4">Filename</label>
+								<input class="form-control" id="fileQuery4" aria-describedby="filename" placeholder="Filename" required >
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<br>
+						</form>
+						
+						<form id = "staticQuery5" action = "javascript:query5();" hidden>
+							<br>
+							<div class="form-group">
+								<label for="sexQuery5">Sex</label>
+								<input class="form-control" id="sexQuery5" aria-describedby="sex" placeholder="Sex" required>
+							</div>
+							<div class="form-group">
+								<label for="famsize5">Family size</label>
+								<input class="form-control" id="famsize5" aria-describedby="famsize" placeholder="Family size" required>
+							</div>
+							<div class="form-group">
+								<label for="fileQuery5">Filename</label>
+								<input class="form-control" id="fileQuery5" aria-describedby="filename" placeholder="Filename" required>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<br>
+						</form>
+						
+						<div id = "selectionInformation">
+							
+						<br>
+						
+						<h5>Custom Query Console</h5>
+						
+						<br>
+						
+						<div class="card">
+							<div id = "queryCommandPanel" class="card-block scroll-box">
+							  
+							</div>
+						</div>
+						
+						
+						</div>
+						
+						<br>
+						
+						<h4>Result : </h4>        
+						<div id = "showQueryData" class = "customTable scrollEnabled">
+                        </div>
+                        
+					</div>
+					
+					</div>
+					
+					<div>
+						<br>
+						<h5 align = 'center' >Custom Query</h5>
+						
+						<br>
+						
+						<h5 class = 'setInline'> Select (Enter your custom select command here. IE: * from FILE) </h5>
+						<form action = "javascript:customQuery();">
+							<input id = 'customquery' class = 'form-control' type="text" required />
+							<br>
+							<input type="submit" value = "Submit" class="btn btn-primary"></submit>
+						</form>
+						<br>
+						
+						<br>
+						
+						<h5>Custom Query Console</h5>
+						
+						<div class="card">
+							<div id = "customCommandPanel" class="card-block scroll-box">
+							  
+							</div>
+						</div>
+						
+						<br>
+						
+						<h4>Result : </h4>        
+						<div id = "showData" class = "customTable scrollEnabled">
+                        </div>
+						
+					
+					</div>
+                    
+                </div>
+                
+                
+                
+            </p>
+        </div>
+    </div>
+    
+    <div id= "footerCopy" class="bottomLayer">
+    </div>
+    
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Scroll to top</button>
+    
+    <div id = "myModal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h5 class="modal-title">Database login</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<div id = "loginform" class="modal-body">
+					<form action = "javascript:attemptLogin()">
+					<div class="form-group">
+						
+					<label for="username" class="col-form-label">Username:</label>
+					<input type="text" class="form-control" id="username" required>
+					
+					<label for="password" class="col-form-label">Password:</label>
+					<input type="text" class="form-control" id="password" required>
+					
+					<label for="dbname" class="col-form-label">Database Name:</label>
+					<input type="text" class="form-control" id="dbname" required>
+					<br>
+					<input type="submit" value="Login">
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- The container that holds everything
+    <div class="container">
+    <h3>Download test</h3>
+    If simpleValid.ged exists in the uploads/ directory on the server, then clicking on the link below will download it from the server.<br>
+    <a href="../uploads/simpleValid.ged">simpleValid.ged</a>
+    <hr>
+    </div>
+    Leave me at the bottom of body -->
+    <script src="./index.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+

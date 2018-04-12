@@ -1,0 +1,31 @@
+****************************************************
+Abir Abbas         						     0955448
+CIS2750 - Assignment 2
+2018-02-02                        abbasa@uoguelph.ca
+****************************************************
+
+************
+Compilation
+************
+make all - compiles both parser and list libraries
+
+make list - compiles list library
+
+make parser - compiles parser library
+
+make clean - cleans everything
+***********************
+Running the program(s)
+***********************
+will depend on your own makefile! usually ./bin/program!
+
+*****************
+References
+*****************
+fgetc was used from the C standard library and modified accordingly to account for \r and \n line terminators!
+The header includes the credits and copyright notice which states that I am allowed to use their function and modify it
+as I wish as long as I copy their multi-line comment into my function header.
+
+*****************
+
+*****************
